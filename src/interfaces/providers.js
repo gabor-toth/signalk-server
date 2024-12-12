@@ -162,6 +162,11 @@ module.exports = function (app) {
         } else {
           res.type('text/plain')
           res.send('Connection ' + (isNew ? 'added' : 'updated'))
+          app.emit('serverevent', {
+            type: 'PROVIDER_CHANGED',
+            from: 'signalk-server',
+            data: updatedProvider
+          })
         }
       })
     }
